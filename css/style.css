@@ -97,11 +97,18 @@ header {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid rgba(245, 245, 247, 0.3);
+    border: 2px solid var(--accent-gold);
     background: transparent;
-    color: var(--off-white);
+    color: #ffffff;
     font-size: 1.1rem;
     transition: var(--transition);
+}
+
+/* زر الاتصال الأحمر تماماً مثل الصورة المطلوبة */
+.mobile-phone-icon-btn,
+.call-btn-mobile {
+    background-color: #b91c1c !important;
+    border: 2px solid var(--accent-gold) !important;
 }
 
 .mobile-phone-icon-btn span {
@@ -142,7 +149,7 @@ header {
     .header-center .mobile-logo {
         display: block !important;
         text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 0;
     }
     
     .header-center .mobile-logo a {
@@ -573,21 +580,37 @@ footer {
 }
 
 @media (max-width: 768px) {
-    /* تنظيم الهيدر للموبايل: زر التواصل يمين، اللوجو في المنتصف تماماً، الهمبرغر يسار */
+    /* تنظيم الهيدر للموبايل بدقة مطابقة للصورة: زر الاتصال يمين، اللوجو وسط، الهمبرغر يسار */
     header {
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
-        padding: 0.6rem 3%;
+        padding: 0.6rem 4%;
+        position: relative;
     }
 
     .desktop-logo { display: none; }
-    .mobile-logo { display: block !important; justify-self: center; }
+    .mobile-logo { 
+        display: block !important; 
+        justify-self: center; 
+        grid-column: 2;
+    }
 
-    .header-right { justify-self: start; }
-    .header-left { justify-self: end; }
+    /* زر الاتصال الأحمر في أقصى اليمين */
+    .header-right, 
+    .header-left:has(.mobile-phone-icon-btn) { 
+        justify-self: end; 
+        grid-column: 3;
+    }
 
-    /* إخفاء زر الواتساب النصي وإظهار زر السماعة الدائري المتحرك فقط */
+    /* قائمة الهمبرغر في أقصى اليسار */
+    .header-left,
+    .hamburger { 
+        justify-self: start; 
+        grid-column: 1;
+    }
+
+    /* إخفاء زر الواتساب النصي وإظهار زر السماعة الدائري الأحمر فقط */
     .header-whatsapp-btn {
         display: none !important;
     }
@@ -629,7 +652,7 @@ footer {
     }
 }
 
-/* أضف هذه الأسطر في نهاية ملف css/style.css */
+/* تنسيقات إضافية مساعدة */
 .hero-short {
     height: 40vh !important;
 }
@@ -683,6 +706,7 @@ footer {
     margin-top: 0.5rem;
     margin-bottom: 1rem;
 }
+
 /* تنسيقات صفحة الخطأ 404 */
 .error-page-section {
     text-align: center;
