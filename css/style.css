@@ -1,0 +1,723 @@
+/* --- إعدادات الألوان الأساسية والهوية البصرية --- */
+:root {
+    --bg-primary: #0b0b0b;
+    --card-bg: #141414;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --accent-gold: #d4af37;
+    --accent-gold-hover: #e6c547;
+    --off-white: #f5f5f7;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- الهيدر العلوي (Header) --- */
+header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 0.8rem 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.logo-container img {
+    height: 45px;
+    object-fit: contain;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--accent-gold);
+}
+
+/* زر الواتساب الافتراضي للديسكتوب (نص وأيقونة) */
+.header-whatsapp-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid rgba(245, 245, 247, 0.3);
+    color: var(--off-white);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.header-whatsapp-btn:hover {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+}
+
+/* زر السماعة المتحركة داخل دائرة للموبايل والتابلت (مخفي افتراضياً بالديسكتوب) */
+.mobile-phone-icon-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(245, 245, 247, 0.3);
+    background: transparent;
+    color: var(--off-white);
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+
+.mobile-phone-icon-btn span {
+    display: inline-block;
+    animation: ring 1.5s infinite ease-in-out;
+}
+
+@keyframes ring {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-14deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-14deg); }
+    50% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 5px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--accent-gold);
+    transition: var(--transition);
+    border-radius: 2px;
+}
+
+/* عرض اللوجو للموبايل */
+@media (max-width: 768px) {
+    .header-center .mobile-logo {
+        display: block !important;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .header-center .mobile-logo a {
+        display: inline-block;
+    }
+}
+
+/* --- قسم الـ Hero --- */
+.hero-section {
+    position: relative;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: url('../img/luxury-abayas-hero-uae.webp') no-repeat center center/cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 1rem;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+/* --- شبكة المنتجات (Abayas Grid) --- */
+.featured-abayas {
+    padding: 4rem 4%;
+}
+
+.abayas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.abaya-card {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.abaya-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-gold);
+}
+
+.abaya-img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+}
+
+.abaya-info {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.abaya-sku {
+    font-size: 0.8rem;
+    color: var(--accent-gold);
+    margin-bottom: 0.3rem;
+}
+
+.abaya-name {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.abaya-price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+/* تنسيق الأزرار داخل الكارد لتكون متناسقة وعلى نفس المستوي */
+.abaya-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: auto;
+}
+
+.btn-primary, .btn-whatsapp {
+    flex: 1;
+    padding: 0.55rem 0.5rem;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background-color: transparent;
+    border: 1px solid var(--accent-gold);
+    color: var(--text-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-gold);
+    color: #000;
+}
+
+.btn-whatsapp {
+    background-color: var(--accent-gold);
+    color: #000;
+    border: 1px solid var(--accent-gold);
+}
+
+.btn-whatsapp:hover {
+    background-color: var(--accent-gold-hover);
+}
+
+.view-more-container {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+#loadMoreBtn {
+    background-color: transparent;
+    border: 1px solid var(--accent-gold);
+    color: var(--text-primary);
+    padding: 0.8rem 2.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+#loadMoreBtn:hover {
+    background-color: var(--accent-gold);
+    color: #000;
+}
+
+/* --- صفحة تفاصيل المنتج --- */
+.product-details-section {
+    padding: 4rem 4%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.product-gallery img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.product-info-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.4rem;
+    color: var(--text-primary);
+}
+
+.product-info-content .sku {
+    color: var(--accent-gold);
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+.product-info-content .price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 1.2rem;
+}
+
+.product-info-content .description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.options-group {
+    margin-bottom: 1.2rem;
+}
+
+.options-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.options-group select {
+    width: 100%;
+    padding: 0.7rem;
+    background: var(--card-bg);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--text-primary);
+    border-radius: 4px;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.size-guide-link-text {
+    display: inline-block;
+    margin-top: 0.4rem;
+    color: var(--accent-gold);
+    font-size: 0.85rem;
+    text-decoration: underline;
+}
+
+.product-actions {
+    margin-top: 2rem;
+}
+
+/* --- صفحة دليل القياسات --- */
+.size-guide-section {
+    padding: 4rem 4%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.guide-intro {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.guide-intro h1 {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-primary);
+}
+
+.guide-intro p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 2.5rem;
+}
+
+.size-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    text-align: center;
+}
+
+.size-table th, .size-table td {
+    padding: 0.8rem;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.size-table th {
+    background-color: #111;
+    color: var(--accent-gold);
+    font-weight: 700;
+}
+
+.guide-visual-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.guide-visual-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: #fff;
+    padding: 8px;
+}
+
+.guide-notes h3 {
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.guide-notes ul {
+    list-style: disc;
+    padding-right: 1.2rem;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+}
+
+.guide-notes ul li {
+    color: var(--text-primary);
+}
+
+/* --- الفوتر (Footer) --- */
+footer {
+    background-color: var(--card-bg);
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 2.5rem 4% 1.2rem;
+    text-align: center;
+}
+
+.footer-top {
+    margin-bottom: 1.5rem;
+}
+
+.footer-title {
+    font-size: 1.3rem;
+    color: var(--accent-gold);
+    margin-bottom: 0.4rem;
+}
+
+.footer-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.social-btn:hover {
+    border-color: var(--accent-gold);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.privacy-link {
+    color: var(--accent-gold);
+}
+
+/* --- زر العودة إلى الأعلى --- */
+#backToTopBtn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: transparent;
+    border: 1px solid var(--accent-gold);
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 999;
+}
+
+#backToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#backToTopBtn:hover {
+    background-color: var(--accent-gold);
+    color: #000;
+}
+
+/* --- الاستجابة للشاشات الصغيرة والتابلت (Responsive Mobile Grid Header) --- */
+@media (max-width: 992px) {
+    .product-details-section, .guide-visual-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    /* تنظيم الهيدر للموبايل: زر التواصل يمين، اللوجو في المنتصف تماماً، الهمبرغر يسار */
+    header {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        padding: 0.6rem 3%;
+    }
+
+    .desktop-logo { display: none; }
+    .mobile-logo { display: block !important; justify-self: center; }
+
+    .header-right { justify-self: start; }
+    .header-left { justify-self: end; }
+
+    /* إخفاء زر الواتساب النصي وإظهار زر السماعة الدائري المتحرك فقط */
+    .header-whatsapp-btn {
+        display: none !important;
+    }
+
+    .mobile-phone-icon-btn {
+        display: flex !important;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        background-color: var(--card-bg);
+        flex-direction: column;
+        align-items: center;
+        padding: 1.2rem 0;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .hero-content h1 {
+        font-size: 2.1rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+}
+
+/* أضف هذه الأسطر في نهاية ملف css/style.css */
+.hero-short {
+    height: 40vh !important;
+}
+
+.display-none {
+    display: none !important;
+}
+
+.display-inline-block {
+    display: inline-block !important;
+}
+
+.text-center-loading {
+    text-align: center;
+    width: 100%;
+    grid-column: span 2;
+    color: var(--text-secondary);
+}
+
+/* تنسيقات صفحة سياسة الخصوصية */
+.privacy-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+}
+
+.privacy-intro {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.privacy-intro h1 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.privacy-content-wrapper {
+    color: var(--text-secondary);
+    line-height: 1.9;
+    font-size: 1.05rem;
+}
+
+.privacy-content-wrapper h3 {
+    color: var(--text-primary);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.privacy-content-wrapper ul {
+    padding-right: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+/* تنسيقات صفحة الخطأ 404 */
+.error-page-section {
+    text-align: center;
+    padding: 5rem 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.error-content-wrapper {
+    margin-bottom: 2rem;
+}
+
+.error-code {
+    font-size: 5rem;
+    color: var(--accent-gold);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.error-page-section h1 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.error-page-section p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.error-actions .btn-primary {
+    display: inline-block;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.05rem;
+    border-radius: 4px;
+    text-decoration: none;
+}
