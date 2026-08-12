@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tarafstyleforabaya.com/sitemap.xml
+Sitemap: https://tarafstyleabaya.com/sitemap.xml
