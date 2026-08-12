@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 
                 let canonicalTag = document.querySelector("link[rel='canonical']");
                 if (canonicalTag) {
-                    canonicalTag.href = `https://tarafstyleforabaya.com/product.html?sku=${product.sku}`;
+                    canonicalTag.href = `https://tarafstyleabaya.com/product.html?sku=${product.sku}`;
                 }
 
                 productDetailsContainer.innerHTML = `
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     "@context": "https://schema.org/",
                     "@type": "Product",
                     "name": product.name,
-                    "image": `https://tarafstyleforabaya.com/${product.img}`,
+                    "image": `https://tarafstyleabaya.com/${product.img}`,
                     "description": product.description,
                     "sku": product.sku,
                     "brand": {
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                         "itemCondition": "https://schema.org/NewCondition",
                         "availability": "https://schema.org/InStock",
                         "areaServed": "AE",
-                        "url": `https://tarafstyleforabaya.com/product.html?sku=${product.sku}`
+                        "url": `https://tarafstyleabaya.com/product.html?sku=${product.sku}`
                     }
                 };
 
