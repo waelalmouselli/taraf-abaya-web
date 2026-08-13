@@ -97,15 +97,16 @@ header {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid rgba(245, 245, 247, 0.3);
-    background: transparent;
-    color: var(--off-white);
+    border: 2px solid var(--accent-gold);
+    background-color: var(--accent-gold);
+    color: #0b0b0b;
     font-size: 1.1rem;
     transition: var(--transition);
 }
 
 .mobile-phone-icon-btn span {
     display: inline-block;
+    color: #0b0b0b;
     animation: ring 1.5s infinite ease-in-out;
 }
 
@@ -142,7 +143,7 @@ header {
     .header-center .mobile-logo {
         display: block !important;
         text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 0;
     }
     
     .header-center .mobile-logo a {
@@ -573,31 +574,39 @@ footer {
 }
 
 @media (max-width: 768px) {
-    /* تنظيم الهيدر للموبايل: زر التواصل يمين، اللوجو في المنتصف تماماً، الهمبرغر يسار */
+    /* تنظيم الهيدر للموبايل: استخدام Grid لضبط العناصر بدقة (اليمين: زر الاتصال، الوسط: الشعار، اليسار: القائمة) */
     header {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        align-items: center;
-        padding: 0.6rem 3%;
+        display: grid !important;
+        grid-template-columns: auto 1fr auto !important;
+        align-items: center !important;
+        padding: 0.6rem 3% !important;
+        position: relative !important;
     }
 
-    .desktop-logo { display: none; }
-    .mobile-logo { display: block !important; justify-self: center; }
+    .desktop-logo { display: none !important; }
+    .mobile-logo { display: block !important; justify-self: center !important; grid-column: 2 !important; }
 
-    .header-right { justify-self: start; }
-    .header-left { justify-self: end; }
+    .header-right { justify-self: start !important; grid-column: 1 !important; }
+    .header-left { justify-self: end !important; grid-column: 3 !important; }
 
-    /* إخفاء زر الواتساب النصي وإظهار زر السماعة الدائري المتحرك فقط */
+    /* إخفاء زر الواتساب النصي وإظهار زر الدائرة الذهبية بالسماعة السوداء حصراً */
     .header-whatsapp-btn {
         display: none !important;
     }
 
     .mobile-phone-icon-btn {
         display: flex !important;
+        background-color: var(--accent-gold) !important;
+        border: 2px solid var(--accent-gold) !important;
+        color: #0b0b0b !important;
+    }
+
+    .mobile-phone-icon-btn span {
+        color: #0b0b0b !important;
     }
 
     .hamburger {
-        display: flex;
+        display: flex !important;
     }
 
     .nav-links {
@@ -615,7 +624,7 @@ footer {
     }
 
     .nav-links.active {
-        display: flex;
+        display: flex !important;
     }
 
     .hero-content h1 {
@@ -629,7 +638,7 @@ footer {
     }
 }
 
-/* أضف هذه الأسطر في نهاية ملف css/style.css */
+/* تنسيقات إضافية مساعدة */
 .hero-short {
     height: 40vh !important;
 }
@@ -683,6 +692,7 @@ footer {
     margin-top: 0.5rem;
     margin-bottom: 1rem;
 }
+
 /* تنسيقات صفحة الخطأ 404 */
 .error-page-section {
     text-align: center;
