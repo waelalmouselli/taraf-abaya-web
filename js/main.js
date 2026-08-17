@@ -42,15 +42,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    /* --- 3. النظام الديناميكي للمنتجات (الرئيسية، جميع العبايات، التفاصيل) --- */
+    /* --- 3. النظام الديناميكي للمنتجات --- */
     const abayasGrid = document.getElementById('abayasGrid');
     const productDetailsContainer = document.getElementById('productDetailsContainer');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     const loadMoreContainer = document.getElementById('loadMoreContainer');
 
-    // جلب البيانات فقط إذا كانت الصفحة تتطلب ذلك لتفادي الأخطاء
     if (abayasGrid || productDetailsContainer) {
-        // تحديد المسار النسبي أو المطلق الصحيح لملف الـ JSON حسب موقع ملفاتك
         fetch('js/products.json')
             .then(response => {
                 if (!response.ok) throw new Error('فشل تحميل بيانات المنتجات');
@@ -58,46 +56,42 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(products => {
 
-                // أ) الصفحة الرئيسية (index.html)
+                // أ) الصفحة الرئيسية (index.html) - عرض أول 4 منتجات
                 if (abayasGrid && !window.location.pathname.includes('all-abayas.html') && !productDetailsContainer) {
                     renderAbayasGrid(products.slice(0, 4), abayasGrid);
                 }
 
-                // ب) صفحة جميع العبايات (all-abayas.html)
-                else if (abayasGrid && (window.location.pathname.includes('all-abayas.html') || loadMoreBtn)) {
+                // ب) صفحة جميع العبايات (all-abayas.html) مع نظام إظهار المزيد
+                else if (abayasGrid && window.location.pathname.includes('all-abayas.html')) {
                     let currentIndex = 0;
-                    const itemsPerBatch = 4;
+                    const itemsPerBatch = 3; // عدد المنتجات التي تظهر في كل ضغطة
 
-                    function loadNextBatch() {
+                    function showMoreProducts() {
                         const nextItems = products.slice(currentIndex, currentIndex + itemsPerBatch);
                         renderAppendAbayasGrid(nextItems, abayasGrid);
                         currentIndex += itemsPerBatch;
 
+                        // إذا تم عرض جميع المنتجات، يتم إخفاء زر إظهار المزيد وإظهار رسالة النهاية
                         if (currentIndex >= products.length) {
+                            if (loadMoreBtn) {
+                                loadMoreBtn.style.display = 'none';
+                            }
                             if (loadMoreContainer) {
-                                loadMoreContainer.innerHTML = `
-                                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem;">لقد وصلت إلى نهاية التشكيلة</p>
-                                    <button id="scrollToTopFromBottom" style="background-color: transparent; border: 1px solid var(--accent-gold); color: var(--text-primary); padding: 0.7rem 2rem; border-radius: 4px; cursor: pointer; transition: var(--transition);">العودة إلى الأعلى &#8593;</button>
-                                `;
-                                
-                                const scrollBtn = document.getElementById('scrollToTopFromBottom');
-                                if(scrollBtn) {
-                                    scrollBtn.addEventListener('click', function() {
-                                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                                    });
-                                }
+                                loadMoreContainer.innerHTML = `<p style="color: var(--text-secondary, #b3a078); font-size: 0.95rem; text-align: center; margin-top: 1rem;">لقد وصلت إلى نهاية التشكيلة</p>`;
                             }
                         }
                     }
 
-                    loadNextBatch();
+                    // عرض الدفعة الأولى عند تحميل الصفحة
+                    showMoreProducts();
 
+                    // ربط الحدث عند الضغط على زر إظهار المزيد
                     if (loadMoreBtn) {
-                        loadMoreBtn.addEventListener('click', loadNextBatch);
+                        loadMoreBtn.addEventListener('click', showMoreProducts);
                     }
                 }
 
-                // ج) صفحة تفاصيل المنتج (product.html) مع حقن الـ Schema الديناميكية
+                // ج) صفحة تفاصيل المنتج (product.html)
                 if (productDetailsContainer) {
                     const urlParams = new URLSearchParams(window.location.search);
                     const skuParam = urlParams.get('sku');
@@ -138,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         `;
 
-                        // حقن بيانات الـ Product Schema ديناميكياً
+                        // حقن الـ Schema الخاصة بالمنتج
                         const cleanPrice = product.price.replace(/[^\d]/g, '');
                         const dynamicSchema = {
                             "@context": "https://schema.org/",
