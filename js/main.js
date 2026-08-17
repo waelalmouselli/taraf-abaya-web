@@ -43,163 +43,166 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /* --- 3. النظام الديناميكي للمنتجات --- */
+    const products = [
+        {
+            "sku": "TS-001",
+            "name": "عباية الملكة السوداء",
+            "price": "450 درهم",
+            "img": "img/elegant-black-abaya-ts001.webp",
+            "description": "تصميم ملكي راقي مصمم خصيصاً من أجود أنواع قماش الفسكوز الملكي الأسود. تأتي العباية مع طرحة مطرزة متناسقة، وتفصيل حسب القياسات المعتمدة.",
+            "sizes": ["Small - طول 52", "Medium - طول 54", "Large - طول 56", "X Large - طول 58", "XX Large - طول 60", "XX Large - طول 62"]
+        },
+        {
+            "sku": "TS-002",
+            "name": "عباية دبي الكلاسيكية",
+            "price": "480 درهم",
+            "img": "img/dubai-style-abaya-ts002.webp",
+            "description": "تصميم كلاسيكي أنيق مستوحى من فخامة العبايات الإماراتية العريقة، ملائم لإطلالاتك اليومية والمناسبات.",
+            "sizes": ["Small - طول 52", "Medium - طول 54", "Large - طول 56", "X Large - طول 58", "XX Large - طول 60"]
+        },
+        {
+            "sku": "TS-003",
+            "name": "عباية التطريز الراقي",
+            "price": "520 درهم",
+            "img": "img/luxury-abaya-ts003.webp",
+            "description": "مزينة بتطريز يدوي دقيق وفخم يضفي طابعاً مميزاً وساحراً على مظهرك.",
+            "sizes": ["Small - طول 52", "Medium - طول 54", "Large - طول 56", "X Large - طول 58"]
+        },
+        {
+            "sku": "TS-004",
+            "name": "عباية المناسبات الملكية",
+            "price": "580 درهم",
+            "img": "img/luxury-abaya-ts004.webp",
+            "description": "الخيار الأمثل للسهرات والمناسبات الخاصة، مصممة بأفخم الأقمشة لتخطف الأنظار.",
+            "sizes": ["Medium - طول 54", "Large - طول 56", "X Large - طول 58", "XX Large - طول 60"]
+        },
+        {
+            "sku": "TS-005",
+            "name": "عباية اللؤلؤ الفاخرة",
+            "price": "610 درهم",
+            "img": "img/luxury-abaya-ts005.webp",
+            "description": "مرصعة بتفاصيل لؤلؤية ناعمة تمنحك إطلالة راقية ومفعمة بالأنوثة.",
+            "sizes": ["Small - طول 52", "Medium - طول 54", "Large - طول 56", "X Large - طول 58"]
+        }
+    ];
+
     const abayasGrid = document.getElementById('abayasGrid');
     const productDetailsContainer = document.getElementById('productDetailsContainer');
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
     const loadMoreContainer = document.getElementById('loadMoreContainer');
 
     if (abayasGrid || productDetailsContainer) {
-        fetch('js/products.json')
-            .then(response => {
-                if (!response.ok) throw new Error('فشل تحميل بيانات المنتجات');
-                return response.json();
-            })
-            .then(products => {
 
-                // أ) الصفحة الرئيسية (index.html) - عرض أول 4 منتجات
-                if (abayasGrid && !window.location.pathname.includes('all-abayas.html') && !productDetailsContainer) {
-                    renderAbayasGrid(products.slice(0, 4), abayasGrid);
+        // أ) الصفحة الرئيسية (index.html) - عرض أول 4 منتجات
+        if (abayasGrid && !window.location.pathname.includes('all-abayas.html') && !productDetailsContainer) {
+            renderAbayasGrid(products.slice(0, 4), abayasGrid);
+        }
+
+        // ب) صفحة جميع العبايات (all-abayas.html) - عرض كل المنتجات دفعة واحدة بدون زر
+        else if (abayasGrid && window.location.pathname.includes('all-abayas.html')) {
+            renderAbayasGrid(products, abayasGrid);
+            if (loadMoreContainer) {
+                loadMoreContainer.style.display = 'none'; // إخفاء حاوية الزر تماماً
+            }
+        }
+
+        // ج) صفحة تفاصيل المنتج (product.html)
+        if (productDetailsContainer) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const skuParam = urlParams.get('sku');
+            const product = products.find(p => p.sku === skuParam);
+
+            if (product) {
+                document.title = `${product.name} (${product.sku}) | ترف ستايل للعبايات`;
+                
+                let canonicalTag = document.querySelector("link[rel='canonical']");
+                if (canonicalTag) {
+                    canonicalTag.href = `https://tarafstyleabaya.com/product.html?sku=${product.sku}`;
                 }
 
-                // ب) صفحة جميع العبايات (all-abayas.html) مع نظام إظهار المزيد
-                else if (abayasGrid && window.location.pathname.includes('all-abayas.html')) {
-                    let currentIndex = 0;
-                    const itemsPerBatch = 3; // عدد المنتجات التي تظهر في كل ضغطة
+                productDetailsContainer.innerHTML = `
+                    <div class="product-gallery">
+                        <img src="${product.img}" alt="${product.name}" loading="lazy">
+                    </div>
 
-                    function showMoreProducts() {
-                        const nextItems = products.slice(currentIndex, currentIndex + itemsPerBatch);
-                        renderAppendAbayasGrid(nextItems, abayasGrid);
-                        currentIndex += itemsPerBatch;
+                    <div class="product-info-content">
+                        <span class="sku">رمز الكود: ${product.sku}</span>
+                        <h1>${product.name}</h1>
+                        <p class="price">${product.price}</p>
+                        <p class="description">${product.description}</p>
 
-                        // إذا تم عرض جميع المنتجات، يتم إخفاء زر إظهار المزيد وإظهار رسالة النهاية
-                        if (currentIndex >= products.length) {
-                            if (loadMoreBtn) {
-                                loadMoreBtn.style.display = 'none';
-                            }
-                            if (loadMoreContainer) {
-                                loadMoreContainer.innerHTML = `<p style="color: var(--text-secondary, #b3a078); font-size: 0.95rem; text-align: center; margin-top: 1rem;">لقد وصلت إلى نهاية التشكيلة</p>`;
-                            }
-                        }
+                        <div class="options-group">
+                            <label for="sizeSelect">اختر المقاس (الطول بالإنش):</label>
+                            <select id="sizeSelect">
+                                ${product.sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+                            </select>
+                            <a href="size-guide.html" target="_blank" class="size-guide-link-text">عرض جدول المقاسات وطريقة القياس بالتفصيل &larr;</a>
+                        </div>
+
+                        <div class="product-actions">
+                            <a href="#" id="whatsappOrderBtn" target="_blank" class="btn-whatsapp" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <span>&#128222;</span> اطلب العباية الآن عبر الواتساب
+                            </a>
+                        </div>
+                    </div>
+                `;
+
+                const cleanPrice = product.price.replace(/[^\d]/g, '');
+                const dynamicSchema = {
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": product.name,
+                    "image": `https://tarafstyleabaya.com/${product.img}`,
+                    "description": product.description,
+                    "sku": product.sku,
+                    "brand": {
+                        "@type": "Brand",
+                        "name": "ترف ستايل للعبايات"
+                    },
+                    "offers": {
+                        "@type": "Offer",
+                        "priceCurrency": "AED",
+                        "price": cleanPrice,
+                        "itemCondition": "https://schema.org/NewCondition",
+                        "availability": "https://schema.org/InStock",
+                        "areaServed": "AE",
+                        "url": `https://tarafstyleabaya.com/product.html?sku=${product.sku}`
                     }
+                };
 
-                    // عرض الدفعة الأولى عند تحميل الصفحة
-                    showMoreProducts();
+                const existingScript = document.getElementById('dynamicProductSchema');
+                if (existingScript) existingScript.remove();
 
-                    // ربط الحدث عند الضغط على زر إظهار المزيد
-                    if (loadMoreBtn) {
-                        loadMoreBtn.addEventListener('click', showMoreProducts);
-                    }
+                const scriptTag = document.createElement('script');
+                scriptTag.id = 'dynamicProductSchema';
+                scriptTag.type = 'application/ld+json';
+                scriptTag.text = JSON.stringify(dynamicSchema);
+                document.head.appendChild(scriptTag);
+
+                const sizeSelect = document.getElementById('sizeSelect');
+                const whatsappOrderBtn = document.getElementById('whatsappOrderBtn');
+
+                function updateWhatsappLink() {
+                    const selectedSize = sizeSelect.value;
+                    const encodedText = encodeURIComponent(`مرحباً، أود طلب ${product.name} - الكود: ${product.sku} بالمقاس: ${selectedSize}`);
+                    whatsappOrderBtn.href = `https://wa.me/971569275283?text=${encodedText}`;
                 }
 
-                // ج) صفحة تفاصيل المنتج (product.html)
-                if (productDetailsContainer) {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const skuParam = urlParams.get('sku');
-                    const product = products.find(p => p.sku === skuParam);
+                sizeSelect.addEventListener('change', updateWhatsappLink);
+                updateWhatsappLink();
 
-                    if (product) {
-                        document.title = `${product.name} (${product.sku}) | ترف ستايل للعبايات`;
-                        
-                        let canonicalTag = document.querySelector("link[rel='canonical']");
-                        if (canonicalTag) {
-                            canonicalTag.href = `https://tarafstyleabaya.com/product.html?sku=${product.sku}`;
-                        }
-
-                        productDetailsContainer.innerHTML = `
-                            <div class="product-gallery">
-                                <img src="${product.img}" alt="${product.name}" loading="lazy">
-                            </div>
-
-                            <div class="product-info-content">
-                                <span class="sku">رمز الكود: ${product.sku}</span>
-                                <h1>${product.name}</h1>
-                                <p class="price">${product.price}</p>
-                                <p class="description">${product.description}</p>
-
-                                <div class="options-group">
-                                    <label for="sizeSelect">اختر المقاس (الطول بالإنش):</label>
-                                    <select id="sizeSelect">
-                                        ${product.sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
-                                    </select>
-                                    <a href="size-guide.html" target="_blank" class="size-guide-link-text">عرض جدول المقاسات وطريقة القياس بالتفصيل &larr;</a>
-                                </div>
-
-                                <div class="product-actions">
-                                    <a href="#" id="whatsappOrderBtn" target="_blank" class="btn-whatsapp" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                        <span>&#128222;</span> اطلب العباية الآن عبر الواتساب
-                                    </a>
-                                </div>
-                            </div>
-                        `;
-
-                        // حقن الـ Schema الخاصة بالمنتج
-                        const cleanPrice = product.price.replace(/[^\d]/g, '');
-                        const dynamicSchema = {
-                            "@context": "https://schema.org/",
-                            "@type": "Product",
-                            "name": product.name,
-                            "image": `https://tarafstyleabaya.com/${product.img}`,
-                            "description": product.description,
-                            "sku": product.sku,
-                            "brand": {
-                                "@type": "Brand",
-                                "name": "ترف ستايل للعبايات"
-                            },
-                            "offers": {
-                                "@type": "Offer",
-                                "priceCurrency": "AED",
-                                "price": cleanPrice,
-                                "itemCondition": "https://schema.org/NewCondition",
-                                "availability": "https://schema.org/InStock",
-                                "areaServed": "AE",
-                                "url": `https://tarafstyleabaya.com/product.html?sku=${product.sku}`
-                            }
-                        };
-
-                        const existingScript = document.getElementById('dynamicProductSchema');
-                        if (existingScript) existingScript.remove();
-
-                        const scriptTag = document.createElement('script');
-                        scriptTag.id = 'dynamicProductSchema';
-                        scriptTag.type = 'application/ld+json';
-                        scriptTag.text = JSON.stringify(dynamicSchema);
-                        document.head.appendChild(scriptTag);
-
-                        const sizeSelect = document.getElementById('sizeSelect');
-                        const whatsappOrderBtn = document.getElementById('whatsappOrderBtn');
-
-                        function updateWhatsappLink() {
-                            const selectedSize = sizeSelect.value;
-                            const encodedText = encodeURIComponent(`مرحباً، أود طلب ${product.name} - الكود: ${product.sku} بالمقاس: ${selectedSize}`);
-                            whatsappOrderBtn.href = `https://wa.me/971569275283?text=${encodedText}`;
-                        }
-
-                        sizeSelect.addEventListener('change', updateWhatsappLink);
-                        updateWhatsappLink();
-
-                    } else {
-                        productDetailsContainer.innerHTML = `
-                            <div style="grid-column: span 2; text-align: center; padding: 3rem;">
-                                <h2 style="color: var(--accent-gold); margin-bottom: 1rem;">عذراً، المنتج غير موجود</h2>
-                                <a href="index.html" class="btn-primary" style="display: inline-block; padding: 0.6rem 1.5rem;">العودة إلى الرئيسية</a>
-                            </div>
-                        `;
-                    }
-                }
-
-            })
-            .catch(error => {
-                console.error('خطأ في تحميل بيانات المنتجات:', error);
-            });
+            } else {
+                productDetailsContainer.innerHTML = `
+                    <div style="grid-column: span 2; text-align: center; padding: 3rem;">
+                        <h2 style="color: var(--accent-gold); margin-bottom: 1rem;">عذراً، المنتج غير موجود</h2>
+                        <a href="index.html" class="btn-primary" style="display: inline-block; padding: 0.6rem 1.5rem;">العودة إلى الرئيسية</a>
+                    </div>
+                `;
+            }
+        }
     }
 
     function renderAbayasGrid(items, container) {
         container.innerHTML = items.map(product => createCardHTML(product)).join('');
-    }
-
-    function renderAppendAbayasGrid(items, container) {
-        const htmlContent = items.map(product => createCardHTML(product)).join('');
-        container.insertAdjacentHTML('beforeend', htmlContent);
     }
 
     function createCardHTML(product) {
