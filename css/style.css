@@ -65,7 +65,8 @@ header {
     transition: var(--transition);
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--accent-gold);
 }
 
@@ -188,6 +189,10 @@ header {
     color: var(--text-secondary);
 }
 
+.hero-short {
+    height: 40vh !important;
+}
+
 /* --- شبكة المنتجات (Abayas Grid) --- */
 .featured-abayas {
     padding: 4rem 4%;
@@ -195,8 +200,23 @@ header {
 
 .abayas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr); /* إجبار العرض على 4 عبايات في الصف */
     gap: 1.5rem;
+    width: 100%;
+}
+
+/* الشاشات المتوسطة (الآيباد والتابلت) */
+@media (max-width: 992px) {
+    .abayas-grid {
+        grid-template-columns: repeat(2, 1fr); /* عبايتين في الصف للتابلت */
+    }
+}
+
+/* شاشات الموبايل */
+@media (max-width: 576px) {
+    .abayas-grid {
+        grid-template-columns: 1fr; /* عباية واحدة في الصف للموبايل */
+    }
 }
 
 .abaya-card {
@@ -638,12 +658,8 @@ footer {
     }
 }
 
-/* تنسيقات إضافية مساعدة */
-.hero-short {
-    height: 40vh !important;
-}
-
-.display-none {
+/* --- تنسيقات إضافية مساعدة --- */
+.display-none, .hidden {
     display: none !important;
 }
 
