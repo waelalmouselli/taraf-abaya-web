@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         // ب) صفحة جميع العبايات (all-abayas.html)
-        else if (abayasGrid && window.location.pathname.includes('all-abayas.html')) {
+        else if (abayasGrid && (window.location.pathname.includes('all-abayas.html') || loadMoreBtn)) {
             let currentIndex = 0;
             const itemsPerBatch = 4;
 
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     </div>
                 `;
 
-                // حقن بيانات الـ Product Schema ديناميكياً لتوافق محركات البحث
+                // حقن بيانات الـ Product Schema ديناميكياً بالدومين الصحيح
                 const cleanPrice = product.price.replace(/[^\d]/g, ''); // استخراج الرقم فقط من السعر
                 const dynamicSchema = {
                     "@context": "https://schema.org/",
