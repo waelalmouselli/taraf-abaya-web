@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /* --- 3. النظام الديناميكي للمنتجات (استدعاء من ملف JSON من داخل مجلد js) --- */
-    // تم تعديل المسار ليكون js/products.json مع إضافة Date.now() لمنع الكاش نهائياً
     fetch('js/products.json?v=' + Date.now())
         .then(response => {
             if (!response.ok) {
@@ -58,17 +57,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (abayasGrid || productDetailsContainer) {
 
-                // أ) الصفحة الرئيسية (index.html) - عرض أول 4 منتجات فقط
-                if (abayasGrid && !window.location.pathname.includes('all-abayas.html') && !productDetailsContainer) {
-                    renderAbayasGrid(products.slice(0, 4), abayasGrid);
-                }
-
-                // ب) صفحة جميع العبايات (all-abayas.html) - عرض كل المنتجات دفعة واحدة
-                else if (abayasGrid && window.location.pathname.includes('all-abayas.html')) {
+                // أ) صفحة جميع العبايات (all-abayas.html أو الرابط النظيف all-abayas) - عرض كل المنتجات دفعة واحدة
+                if (abayasGrid && window.location.pathname.includes('all-abayas')) {
                     renderAbayasGrid(products, abayasGrid);
                     if (loadMoreContainer) {
                         loadMoreContainer.style.display = 'none'; // إخفاء حاوية الزر تماماً
                     }
+                }
+
+                // ب) الصفحة الرئيسية (index.html) - عرض أول 4 منتجات فقط
+                else if (abayasGrid && !productDetailsContainer) {
+                    renderAbayasGrid(products.slice(0, 4), abayasGrid);
                 }
 
                 // ج) صفحة تفاصيل المنتج (product.html)
