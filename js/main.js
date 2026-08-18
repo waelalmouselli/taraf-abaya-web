@@ -53,16 +53,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(products => {
             const abayasGrid = document.getElementById('abayasGrid');
             const productDetailsContainer = document.getElementById('productDetailsContainer');
-            const loadMoreContainer = document.getElementById('loadMoreContainer');
 
             if (abayasGrid || productDetailsContainer) {
 
                 // أ) صفحة جميع العبايات (all-abayas.html أو الرابط النظيف all-abayas) - عرض كل المنتجات دفعة واحدة
                 if (abayasGrid && window.location.pathname.includes('all-abayas')) {
                     renderAbayasGrid(products, abayasGrid);
-                    if (loadMoreContainer) {
-                        loadMoreContainer.style.display = 'none'; // إخفاء حاوية الزر تماماً
-                    }
                 }
 
                 // ب) الصفحة الرئيسية (index.html) - عرض أول 4 منتجات فقط
