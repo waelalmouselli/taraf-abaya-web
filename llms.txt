@@ -1,0 +1,18 @@
+# Taraf Style Abayas (ترف ستايل للعبايات)
+
+> متجر إلكتروني فاخر متخصص في تصميم وتفصيل العبايات الإماراتية الفاخرة.
+
+## Main Pages
+- [الصفحة الرئيسية](https://tarafstyleabaya.com/)
+- [جميع العبايات](https://tarafstyleabaya.com/all-abayas.html)
+- [دليل القياسات](https://tarafstyleabaya.com/size-guide.html)
+- [سياسة الخصوصية](https://tarafstyleabaya.com/privacy-policy.html)
+
+## Catalog & Products
+- [TS-001: عباية الملكة السوداء](https://tarafstyleabaya.com/product.html?sku=TS-001): السعر 280 درهم. عباية عملية مع شيلة مميزة من قماش الانجليكا سواد غامق.
+- [TS-002: عباية رونق](https://tarafstyleabaya.com/product.html?sku=TS-002): السعر 280 درهم. عباية عملية أنيقة من قماش الكوبرا مع شيلة.
+- [TS-003: عباية شموخ](https://tarafstyleabaya.com/product.html?sku=TS-003): السعر 280 درهم. عباية قصة نص كلوش من قماش الانجليكا مع شيلة.
+- [TS-004: عباية ترف](https://tarafstyleabaya.com/product.html?sku=TS-004): السعر 370 درهم. عباية طلة ملوكية من قماش الانجليكا قصة نص كلوش.
+- [TS-005: عباية ملامح](https://tarafstyleabaya.com/product.html?sku=TS-005): السعر 275 درهم. عباية بقصة بليزر الكوبرا مع الستان الأرماني.
+- [TS-006: عباية وهج](https://tarafstyleabaya.com/product.html?sku=TS-006): السعر 300 درهم. عباية من قماش الانجليكا بتطريز يدوي وقصة نص كلوش.
+- [TS-007: عباية مدى](https://tarafstyleabaya.com/product.html?sku=TS-007): السعر 350 درهم. عباية بالتطريز اليدوي باللونين الأوف وايت والأسود.
